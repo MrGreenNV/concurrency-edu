@@ -1,21 +1,24 @@
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author mrGreenNV
  */
 public class Main {
 
-    public final static int COUNT_PHILOSOPHER = 2;
+    public final static int COUNT_PHILOSOPHER = 5;
 
     public static void main(String[] args) {
         final Philosopher[] philosophers = new Philosopher[COUNT_PHILOSOPHER];
-        final Fork[] forks = new Fork[philosophers.length];
+        final Lock[] locks = new Lock[philosophers.length];
 
-        for (int i = 0; i < forks.length; i++) {
-            forks[i] = new Fork();
+        for (int i = 0; i < locks.length; i++) {
+            locks[i] = new ReentrantLock();
         }
 
         for (int i = 0; i < philosophers.length; i++) {
-            Fork leftFork = forks[i];
-            Fork rightFork = forks[(i + 1) % forks.length];
+            Lock leftFork = locks[i];
+            Lock rightFork = locks[(i + 1) % locks.length];
 
             philosophers[i] = new Philosopher(leftFork, rightFork);
 
